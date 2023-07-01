@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
 
+        DBHandler db = new DBHandler(this,null,null,1);
+
         Intent rec = getIntent();
         User user = (User) rec.getSerializableExtra("user");
 
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 if (user.followed == false){
                     but.setText("UNFOLLOW");
                     user.followed = true;
-
+                    db.updateUser(user);
                     // toast
                     Toast.makeText(getApplicationContext(),"Unfollowed!",Toast.LENGTH_LONG);
 
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     but.setText("FOLLOW");
                     user.followed = false;
+                    db.updateUser(user);
 
                     Toast.makeText(getApplicationContext(),"Followed!",Toast.LENGTH_LONG);
                 }

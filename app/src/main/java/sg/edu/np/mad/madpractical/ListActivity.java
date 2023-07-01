@@ -22,14 +22,17 @@ import java.util.Random;
 
 public class ListActivity extends AppCompatActivity {
 
-    static ArrayList<User> usL;
-
+    static DBHandler db;
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_list);
-        if (usL == null){
-            usL = createUSL();
+
+        // instantiates a db
+        db = new DBHandler(this,null,null, 1);
+        ArrayList<User> usL = createUSL();
+        for (User u : usL){
+            db.addUser(u);
         }
     }
 
@@ -39,8 +42,10 @@ public class ListActivity extends AppCompatActivity {
 
         // set up recycler view
 
+        ArrayList<User> usL = db.getUsers();
+
         RecyclerView recyclerView = findViewById(R.id.recycler);
-        Adapter adapter = new Adapter(this,usL);
+        Adapter adapter = new Adapter(ListActivity.this,usL);
         LinearLayoutManager mlayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mlayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
