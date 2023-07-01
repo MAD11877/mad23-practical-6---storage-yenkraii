@@ -31,8 +31,11 @@ public class ListActivity extends AppCompatActivity {
         // instantiates a db
         db = new DBHandler(this,null,null, 1);
         ArrayList<User> usL = createUSL();
+        Integer count = 0;
         for (User u : usL){
+            u.id = count;
             db.addUser(u);
+            count += 1;
         }
     }
 

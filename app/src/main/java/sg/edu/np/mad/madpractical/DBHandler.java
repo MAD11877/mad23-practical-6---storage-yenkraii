@@ -35,10 +35,9 @@ public class DBHandler extends SQLiteOpenHelper {
         String CREATE_TABLE_COMMAND = "CREATE TABLE " + ACCOUNTS +" ( " +
                 COLUMN_UN + " TEXT, " +
                 COLUMN_DE + " TEXT, " +
-                COLUMN_ID + "INT INCREMENT,"+
-                COLUMN_FL + "BOOLEAN"
-                +");"
-                ;
+                COLUMN_ID + " INT, "+
+                COLUMN_FL + " BOOLEAN" +
+                ");";
 
         Log.i(title, CREATE_TABLE_COMMAND);
 
@@ -85,7 +84,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void updateUser(User u)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE " + ACCOUNTS +" SET " + COLUMN_FL +" = \""+ u.followed +"\" " +  " WHERE " + COLUMN_ID +" = \""+ u.id +"\"");
+        db.execSQL("UPDATE " + ACCOUNTS +" SET " + COLUMN_FL +" = "+ u.followed  +  " WHERE " + COLUMN_ID +" = "+ u.id);
         db.close();
     }
 
